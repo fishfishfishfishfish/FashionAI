@@ -1,10 +1,6 @@
 from mxnet import image
 from mxnet import nd
 import numpy as np
-import utils
-import pandas
-import matplotlib.pyplot as plt
-import csv
 
 
 def get_image_mat(data_path, pic_size):
@@ -14,9 +10,9 @@ def get_image_mat(data_path, pic_size):
     return img.astype('float32').asnumpy()
 
 
-def get_labels(str):
+def get_labels(string):
     y = []
-    for s in str:
+    for s in string:
         if s == 'y':
             y.append(1)
         elif s == 'm':
@@ -27,7 +23,7 @@ def get_labels(str):
 
 
 class DataLoader(object):
-    def __init__(self, data_path, raw_data, batch_size, shuffle, transform=None, for_show=False, pic_size=(512, 512)):
+    def __init__(self, data_path, raw_data, batch_size, shuffle, transform=None, for_show=False, pic_size=(448, 448)):
         self.data_path = data_path
         self.raw_data = raw_data
         self.batch_size = batch_size
@@ -53,7 +49,7 @@ class DataLoader(object):
             x = nd.array(np.array(x))
             y = nd.array(y)
             if self.transform is not None:
-                x,y = self.transform(x, y)
+                x, y = self.transform(x, y)
             if not self.for_show:
                 x = nd.transpose(x, (0, 3, 1, 2))
 
